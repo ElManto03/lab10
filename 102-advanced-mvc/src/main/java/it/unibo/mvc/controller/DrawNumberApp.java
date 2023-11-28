@@ -1,8 +1,13 @@
 package it.unibo.mvc.controller;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import it.unibo.mvc.DrawResult;
 import it.unibo.mvc.model.DrawNumber;
@@ -34,6 +39,17 @@ public final class DrawNumberApp implements DrawNumberViewObserver {
             view.start();
         }
         this.model = new DrawNumberImpl(MIN, MAX, ATTEMPTS);
+
+        try (BufferedReader r = new BufferedReader(new InputStreamReader(new FileInputStream("./config.yml")))) {
+            for (int i=0; i < 3; i++) {
+                final String line = r.readLine();
+                final StringTokenizer splitter = new StringTokenizer(line);
+                System.out.println(splitter.nextToken());
+                System.out.println(splitter.nextToken());
+            }
+        } catch (final IOException e) {
+            throw new IllegalArgumentException("File not found");
+        }
     }
 
     @Override
@@ -43,7 +59,7 @@ public final class DrawNumberApp implements DrawNumberViewObserver {
             for (final DrawNumberView view: views) {
                 view.result(result);
             }
-        } catch (IllegalArgumentException e) {
+        } catch (final IllegalArgumentException e) {
             for (final DrawNumberView view: views) {
                 view.numberIncorrect();
             }
@@ -74,5 +90,4 @@ public final class DrawNumberApp implements DrawNumberViewObserver {
     public static void main(final String... args) throws FileNotFoundException {
         new DrawNumberApp(new DrawNumberViewImpl());
     }
-
 }
