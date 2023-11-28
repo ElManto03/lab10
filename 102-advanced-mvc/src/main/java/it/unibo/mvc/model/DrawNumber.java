@@ -1,4 +1,6 @@
-package it.unibo.mvc;
+package it.unibo.mvc.model;
+
+import it.unibo.mvc.DrawResult;
 
 /**
  * This class models a draw number game.

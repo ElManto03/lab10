@@ -1,4 +1,4 @@
-package it.unibo.mvc;
+package it.unibo.mvc.view;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -10,6 +10,9 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import it.unibo.mvc.DrawResult;
+import it.unibo.mvc.controller.DrawNumberViewObserver;
 
 /**
  * Graphical {@link DrawNumberView} implementation.
@@ -116,5 +119,10 @@ public final class DrawNumberViewImpl implements DrawNumberView {
 
     private void plainMessage(final String msg) {
         JOptionPane.showMessageDialog(frame, msg, "Result", JOptionPane.PLAIN_MESSAGE);
+    }
+
+    @Override
+    public void displayError(String message) {
+        JOptionPane.showMessageDialog(frame,message, "Error", JOptionPane.ERROR_MESSAGE);
     }
 }

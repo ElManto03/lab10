@@ -1,8 +1,14 @@
-package it.unibo.mvc;
+package it.unibo.mvc.controller;
 
 import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.List;
+
+import it.unibo.mvc.DrawResult;
+import it.unibo.mvc.model.DrawNumber;
+import it.unibo.mvc.model.DrawNumberImpl;
+import it.unibo.mvc.view.DrawNumberView;
+import it.unibo.mvc.view.DrawNumberViewImpl;
 
 /**
  */

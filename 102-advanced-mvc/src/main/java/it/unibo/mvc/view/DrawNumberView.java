@@ -1,4 +1,7 @@
-package it.unibo.mvc;
+package it.unibo.mvc.view;
+
+import it.unibo.mvc.DrawResult;
+import it.unibo.mvc.controller.DrawNumberViewObserver;
 
 /**
  *
@@ -24,4 +27,10 @@ public interface DrawNumberView {
      * @param res the result of the last draw
      */
     void result(DrawResult res);
+
+
+    /**
+     * @param message the message of the error
+     */
+    void displayError(String message);
 }
