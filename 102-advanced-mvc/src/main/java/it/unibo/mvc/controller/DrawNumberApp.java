@@ -51,17 +51,15 @@ public final class DrawNumberApp implements DrawNumberViewObserver {
         try (BufferedReader r = new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8))) {
             String line;
             while ((line = r.readLine()) != null) { // NOPMD
-                final StringTokenizer splitter = new StringTokenizer(line);
+                final StringTokenizer splitter = new StringTokenizer(line, ": ");
                 if (splitter.countTokens() == 2) {
-                    setBuild(splitter.nextToken(": "),
-                            splitter.nextToken(": "),
+                    setBuild(splitter.nextToken(),
+                            splitter.nextToken(),
                             builder);
                 }
             }
         } catch (final IOException e) {
-            for (final DrawNumberView view : views) {
-                view.displayError("Error with file, default values are set instead");
-            }
+            displayError("Error with file, default values are set instead");
         }
         return builder.build();
     }
@@ -73,12 +71,17 @@ public final class DrawNumberApp implements DrawNumberViewObserver {
                 case MIN -> builder.setMin(intValue);
                 case MAX -> builder.setMax(intValue);
                 case ATTEMPTS -> builder.setAttempts(intValue);
-                default -> { }
+                default -> displayError("Invalid type in config file: " + type);
             }
         } catch (final NumberFormatException e) {
-            for (final DrawNumberView view : views) {
-                view.displayError("Invalid argument in config file, default value is set instead");
-            }
+            displayError("Invalid argument in config file in this written line: " + type + ": " + value
+                    + ", default value is set instead");
+        }
+    }
+
+    private void displayError(final String message) {
+        for (final DrawNumberView view : views) {
+            view.displayError(message);
         }
     }
 
