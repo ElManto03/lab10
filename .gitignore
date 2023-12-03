@@ -1,2 +1,6 @@
 */.gradle/
 */bin/
+*/gradlew.bat
+*/.vscode
+*/build
+*/log*

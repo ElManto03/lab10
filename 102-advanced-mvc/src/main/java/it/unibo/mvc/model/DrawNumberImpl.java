@@ -2,6 +2,7 @@ package it.unibo.mvc.model;
 
 import java.util.Random;
 
+import it.unibo.mvc.Configuration;
 import it.unibo.mvc.DrawResult;
 
 /**
@@ -17,12 +18,17 @@ public final class DrawNumberImpl implements DrawNumber {
     private final Random random = new Random();
 
     /**
+     * @param config the builded configuration
+     * 
      * @throws IllegalStateException if the configuration is not consistent
      */
-    public DrawNumberImpl(final int min, final int max, final int attempts) {
-        this.min = min;
-        this.max = max;
-        this.attempts = attempts;
+    public DrawNumberImpl(final Configuration config) {
+        if (!config.isConsistent()) {
+            throw new IllegalStateException("The builder can only be used once");
+        }
+        this.min = config.getMin();
+        this.max = config.getMax();
+        this.attempts = config.getAttempts();
         this.reset();
     }
 
